@@ -26,8 +26,6 @@ class Find:
             # парсинг ответа
             self.main_parse()
 
-            a = 1 / 0
-
         except Exception as e:
             self._list_res.append(str(e))
             logger = ErrorLogger()
