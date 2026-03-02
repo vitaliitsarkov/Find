@@ -160,23 +160,4 @@ class FindYandex:
         self.close()
 
 
-# Пример использования
-if __name__ == "__main__":
-    query = "Вальс бостон"
 
-    try:
-        # Использование с контекстным менеджером (рекомендуется)
-        with FindYandex(query) as searcher:
-            print(f"Выполняется поиск: '{query}'")
-            news_items = searcher.search()
-
-            print(f"\nНайдено {len(news_items)} новостей по запросу '{query}':")
-            for i, news in enumerate(news_items, 1):
-                print(f"{i}. {news.text}")
-                print(f"   URL: {news.url}\n")
-
-            if not news_items:
-                print("Новости не найдены. Попробуйте изменить запрос.")
-
-    except Exception as e:
-        print(f"Ошибка ввода: {e}")
