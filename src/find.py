@@ -1,5 +1,5 @@
 from src.find_input import FindInput
-from src.find_yandex import FindYandex, Item
+from src.find_search import FindYandex, Item
 from src.find_log import ErrorLogger
 
 
