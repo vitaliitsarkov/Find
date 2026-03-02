@@ -3,5 +3,5 @@ import pyinputplus as pyip
 class FindInput:
     @staticmethod
     def main():
-        response = 'test'#pyip.inputStr(prompt="Введите текст для поиска: ")
+        response = 'Отшумели летние дожди'#pyip.inputStr(prompt="Введите название песни: ")
         return response
