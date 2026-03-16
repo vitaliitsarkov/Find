@@ -1,9 +1,10 @@
+Таблица без связей:
 CREATE TABLE `fw_settings` (
   `name` varchar(127) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
   `value` text CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
+Таблица без связей:
 CREATE TABLE `fw_players` (
   `disabled` tinyint(1) NOT NULL DEFAULT '0',
   `status` int NOT NULL COMMENT 'Статус игры',
@@ -12,6 +13,8 @@ CREATE TABLE `fw_players` (
   `processed_at` datetime DEFAULT NULL COMMENT 'Последняя фоновая обработка'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+Таблица связана как многи ко многим через таблицу fw_event_modifier с fw_modifiers по event_id int NOT NULL, modifier_id int NOT NULL,
+Таблица связана как многи ко многим через таблицу fw_event_tag с fw_tag по event_id int NOT NULL, tag_id int NOT NULL,
 CREATE TABLE `fw_events` (
   `event_type` int NOT NULL,
   `caption` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -19,6 +22,7 @@ CREATE TABLE `fw_events` (
   `disabled` tinyint(1) NOT NULL DEFAULT '0',
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+Таблица связана как многи ко многим через таблицу fw_modifier_tagg с fw_tag по modifier_id int NOT NULL, tag_id int NOT NULL,
 CREATE TABLE `fw_modifiers` (
   `disabled` tinyint(1) NOT NULL DEFAULT '0',
   `modifier_type` int NOT NULL,
@@ -27,6 +31,7 @@ CREATE TABLE `fw_modifiers` (
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+Не знаю надо ли ее создавать явно или она автосгенерится, полагаю, что надо, т.к. есть доп поле disable
 CREATE TABLE `fw_event_modifier` (
   `disabled` tinyint(1) NOT NULL DEFAULT '0',
   `event_id` int NOT NULL,
@@ -34,6 +39,7 @@ CREATE TABLE `fw_event_modifier` (
   `config` json NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+Связана с fw_event_tag и fw_modifier_tag
 CREATE TABLE `fw_tags` (
   `tag_type` int NOT NULL,
   `caption` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -41,12 +47,14 @@ CREATE TABLE `fw_tags` (
   `disabled` tinyint(1) NOT NULL DEFAULT '0',
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+Не знаю надо ли ее создавать явно или она автосгенерится, полагаю, что надо, т.к. есть доп поле disable
 CREATE TABLE `fw_modifier_tag` (
   `disabled` tinyint(1) NOT NULL DEFAULT '0',
   `modifier_id` int NOT NULL,
   `tag_id` int NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+Не знаю надо ли ее создавать явно или она автосгенерится, полагаю, что надо, т.к. есть доп поле disable
 CREATE TABLE `fw_event_tag` (
   `event_id` int NOT NULL,
   `tag_id` int NOT NULL,
