@@ -1,0 +1,54 @@
+CREATE TABLE `fw_settings` (
+  `name` varchar(127) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `value` text CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `fw_players` (
+  `disabled` tinyint(1) NOT NULL DEFAULT '0',
+  `status` int NOT NULL COMMENT 'Статус игры',
+  `current_event` char(32) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL COMMENT 'Активное событие',
+  `parameters` json DEFAULT NULL COMMENT 'Данные текущей игры',
+  `processed_at` datetime DEFAULT NULL COMMENT 'Последняя фоновая обработка'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `fw_events` (
+  `event_type` int NOT NULL,
+  `caption` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `disabled` tinyint(1) NOT NULL DEFAULT '0',
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `fw_modifiers` (
+  `disabled` tinyint(1) NOT NULL DEFAULT '0',
+  `modifier_type` int NOT NULL,
+  `class` varchar(64) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL COMMENT 'Класс обработчик',
+  `caption` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `fw_event_modifier` (
+  `disabled` tinyint(1) NOT NULL DEFAULT '0',
+  `event_id` int NOT NULL,
+  `modifier_id` int NOT NULL,
+  `config` json NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `fw_tags` (
+  `tag_type` int NOT NULL,
+  `caption` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `disabled` tinyint(1) NOT NULL DEFAULT '0',
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `fw_modifier_tag` (
+  `disabled` tinyint(1) NOT NULL DEFAULT '0',
+  `modifier_id` int NOT NULL,
+  `tag_id` int NOT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `fw_event_tag` (
+  `event_id` int NOT NULL,
+  `tag_id` int NOT NULL,
+  `disabled` tinyint(1) NOT NULL DEFAULT '0',
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
